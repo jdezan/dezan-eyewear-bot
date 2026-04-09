@@ -1,0 +1,22 @@
+# Secrets
+.env
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+.venv/
+venv/
+
+# Vectorstore (gerado pelo ingest.py)
+vectorstore/
+*.faiss
+
+# macOS resource forks
+._*
+.DS_Store
+
+# IDE
+.vscode/
+.idea/
+*.swp
