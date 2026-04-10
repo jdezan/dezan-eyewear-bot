@@ -39,7 +39,9 @@ class GoogleSheetsFAQ:
         try:
             resp = requests.get(self.csv_url, timeout=8)
             resp.raise_for_status()
-            reader = csv.DictReader(io.StringIO(resp.text))
+            # Força UTF-8 para garantir acentos corretos (Google Sheets exporta em UTF-8)
+            content = resp.content.decode("utf-8-sig")  # utf-8-sig remove BOM se houver
+            reader = csv.DictReader(io.StringIO(content))
             self._rows = [
                 {k.strip().lower(): v.strip() for k, v in row.items()}
                 for row in reader
