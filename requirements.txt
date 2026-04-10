@@ -1,12 +1,26 @@
-python-telegram-bot==21.7
+# ── Web / API ─────────────────────────────────────────────────
 fastapi==0.115.6
 uvicorn==0.34.0
 httpx==0.28.1
+requests==2.32.3
+python-dotenv==1.0.1
+
+# ── LangChain + RAG ───────────────────────────────────────────
 langchain==0.3.14
 langchain-community==0.3.14
-langchain-openai==0.3.0
+langchain-groq==0.2.3
 faiss-cpu==1.9.0
+
+# ── Embeddings locais (HuggingFace) ───────────────────────────
+sentence-transformers==3.3.1
+
+# ── Leitura de documentos ─────────────────────────────────────
 pypdf==5.1.0
 python-docx==1.1.2
-python-dotenv==1.0.1
-tiktoken==0.8.0
+
+# ── Telegram (opcional) ───────────────────────────────────────
+python-telegram-bot==21.7
+
+# ── OpenAI (somente se LLM_PROVIDER=openai) ───────────────────
+# langchain-openai==0.3.0
+# tiktoken==0.8.0

@@ -1,5 +1,5 @@
 services:
-  # API + WhatsApp webhook
+  # API principal — webhook Evolution API + RAG
   api:
     build: .
     ports:
@@ -9,13 +9,18 @@ services:
       - ./data:/app/data
       - ./vectorstore:/app/vectorstore
     restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
 
-  # Bot Telegram (separado — polling, nao precisa de porta)
-  telegram:
-    build: .
-    command: python bot_telegram.py
-    env_file: .env
-    volumes:
-      - ./data:/app/data
-      - ./vectorstore:/app/vectorstore
-    restart: unless-stopped
+  # Bot Telegram (opcional — polling, não precisa de porta externa)
+  # telegram:
+  #   build: .
+  #   command: python bot_telegram.py
+  #   env_file: .env
+  #   volumes:
+  #     - ./data:/app/data
+  #     - ./vectorstore:/app/vectorstore
+  #   restart: unless-stopped
