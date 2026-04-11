@@ -34,19 +34,23 @@ class Answer(BaseModel):
 async def startup():
     logger.info("Carregando vectorstore FAISS...")
     try:
+        _run_ingest_if_needed()
         engine.load()
-        logger.info("RAG pronto.")
-    except FileNotFoundError:
-        logger.warning("Vectorstore não encontrado — rodando ingest.py automaticamente...")
-        import subprocess, sys
+        logger.info("RAG pronto. ✅")
+    except Exception as e:
+        logger.error(f"RAG não carregado: {e}")
+        logger.warning("Bot iniciado SEM RAG — FAQ e menu funcionam normalmente. Verifique as variáveis de ambiente.")
+
+
+def _run_ingest_if_needed():
+    import os, subprocess, sys
+    vs = config.VECTORSTORE_DIR
+    if not os.path.exists(vs) or not os.listdir(vs):
+        logger.warning("Vectorstore não encontrado — rodando ingest.py...")
         result = subprocess.run([sys.executable, "ingest.py"], capture_output=True, text=True)
         logger.info(result.stdout)
-        if result.returncode == 0:
-            engine.load()
-            logger.info("RAG pronto (ingest concluído).")
-        else:
+        if result.returncode != 0:
             logger.error(f"Falha no ingest: {result.stderr}")
-            logger.warning("Bot iniciado SEM RAG. Verifique os arquivos em data/")
 
 
 # ── Endpoints públicos ────────────────────────────────────────────────────────
