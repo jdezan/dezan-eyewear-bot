@@ -18,7 +18,8 @@ from sentence_transformers import SentenceTransformer; \
 SentenceTransformer('sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2'); \
 print('Modelo de embeddings pré-carregado com sucesso.')"
 
-# Copia o código
+# Copia o código — atualizado em 2026-05-13
+ARG CACHEBUST=2026-05-13
 COPY . .
 
 EXPOSE 8000
