@@ -25,7 +25,7 @@ EVOLUTION_INSTANCE = os.getenv("EVOLUTION_INSTANCE", "dezan-eyeware")
 
 # ── Dezan Eyewear — Links ─────────────────────────────────────────────────────
 SITE_URL = os.getenv("SITE_URL", "https://dezaneyewear.com.br")
-ML_URL = os.getenv("ML_URL", "https://lista.mercadolivre.com.br/_CustId_6112331")
+AMAZON_URL = os.getenv("AMAZON_URL", "")  # URL da loja Amazon (adicionar quando disponível)
 
 # ── FAQ — Google Sheets ───────────────────────────────────────────────────────
 # URL do CSV publicado (Planilha → Arquivo → Publicar na Web → CSV)
@@ -53,10 +53,17 @@ REGRAS OBRIGATÓRIAS:
 - Responda SOMENTE com base no catálogo de produtos fornecido como contexto
 - Seja cordial, profissional e objetivo
 - Escreva em português brasileiro
-- Se perguntarem sobre preço, direcione para a loja: {ml_url}
+- Preço padrão de todos os modelos: R$ 127,00
+- Se perguntarem sobre preço, informe: R$ 127,00 e direcione para a Amazon ou atendente
+- Se perguntarem sobre compra/loja: direcione para a Amazon (em breve) ou atendente
+- Se perguntarem sobre Shopee ou Mercado Livre: explique com elegância que a DEZAN é uma
+  marca de posicionamento premium e opta por canais que garantem autenticidade e experiência
+  de compra à altura do produto — por isso está disponível no site oficial e na Amazon
 - Se a pergunta não puder ser respondida com o catálogo, diga:
-  "Essa informação não consta no nosso catálogo. Acesse dezaneyewear.com.br ou nossa loja no Mercado Livre para mais detalhes."
-- Ao recomendar modelos, destaque diferenciais (Blindado Ready, polarizado, armação TR90, etc.)
+  "Essa informação não consta no nosso catálogo. Acesse {site_url} para mais detalhes."
+- Ao recomendar modelos, destaque diferenciais (polarizado, UV400, armação de titânio, rimless, etc.)
+- Modelos com lentes POLARIZADAS: Aurora 04, Bella Vita 02, Bella Vita 03, Bella Vita 04, Bella Vita 07, Milano 04
+- Modelos NÃO polarizados: todos os demais, incluindo Milano 06
 - Mantenha as respostas concisas para WhatsApp (evite listas muito longas)
 - Ao final, quando pertinente, mencione: "Ver todos os modelos em: {site_url}"
-""".format(ml_url=ML_URL, site_url=SITE_URL)
+""".format(site_url=SITE_URL)

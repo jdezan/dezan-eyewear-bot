@@ -19,7 +19,7 @@ MENU_TEXT = (
     "Somos uma marca premium de óculos. Como posso te ajudar?\n\n"
     "1️⃣  Ver catálogo de coleções\n"
     "2️⃣  Visitar nosso site\n"
-    "3️⃣  Comprar na loja Mercado Livre\n"
+    "3️⃣  Comprar na Amazon\n"
     "4️⃣  Perguntar sobre modelos (IA)\n"
     "5️⃣  Falar com um atendente\n\n"
     "Responda com o *número* da opção desejada."
@@ -116,9 +116,9 @@ async def handle_message(number: str, text: str, push_name: str = "") -> None:
             await send_message(
                 number,
                 "Desculpe, tive um problema ao processar sua pergunta. "
-                "Tente novamente ou digit *menu* para outras opções.",
+                "Tente novamente ou digite *menu* para outras opções.",
             )
-        await send_message(number, "_Mais alguma dúvida? Ou digit *menu* para voltar._")
+        await send_message(number, "_Mais alguma dúvida? Ou digite *menu* para voltar._")
         return
 
     # Fallback
@@ -133,11 +133,13 @@ async def handle_menu_option(number: str, option: str, session: dict) -> None:
     if option == "1":
         resp = faq.get_by_key("catalogo") or (
             "📚 *Nossas Coleções Premium:*\n\n"
-            "👓 *Atlântico Premium* — Elegância e resistência\n"
-            "✨ *Aurora Premium* — Design moderno e sofisticado\n"
-            "🏛️ *Veneto Premium* — Clássico e atemporal\n\n"
-            f"🌐 Site: {config.SITE_URL}\n"
-            f"🛒 Mercado Livre: {config.ML_URL}\n\n"
+            "🌊 *Atlântico* — Oversized e estilos urbanos, elegância robusta\n"
+            "✨ *Aurora* — Design sofisticado, feminino e versátil\n"
+            "🌸 *Bella Vita* — Estilo italiano, feminino e contemporâneo\n"
+            "🏛️ *Collezione Milano* — Rimless e geométrico, luxo europeu\n"
+            "🎨 *Veneto* — Retrô sofisticado, unissex e atemporal\n\n"
+            "💰 *Preço único:* R$ 127,00\n"
+            f"🌐 Site: {config.SITE_URL}\n\n"
             "Para mais detalhes sobre qualquer modelo, escolha a opção *4* e pergunte!"
         )
         await send_message(number, resp)
@@ -150,9 +152,11 @@ async def handle_menu_option(number: str, option: str, session: dict) -> None:
         await send_message(number, resp)
 
     elif option == "3":
-        resp = faq.get_by_key("mercadolivre") or (
-            f"🛒 *Nossa loja no Mercado Livre:*\n{config.ML_URL}\n\n"
-            "Compre com segurança e receba em casa!"
+        resp = faq.get_by_key("amazon") or (
+            "🛒 *Compre na Amazon*\n\n"
+            "Nossa loja na Amazon estará disponível em breve com todos os modelos.\n\n"
+            "Por enquanto, fale com nosso atendente para efetuar sua compra:\n"
+            "👉 Digite *5* para falar com um atendente."
         )
         await send_message(number, resp)
 
@@ -164,7 +168,7 @@ async def handle_menu_option(number: str, option: str, session: dict) -> None:
             "Pode me perguntar sobre:\n"
             "• Modelos e coleções\n"
             "• Materiais e lentes\n"
-            "• Diferenciais (Blindado Ready, polarizado etc.)\n"
+            "• Diferenciais (polarizado, lentes UV400 etc.)\n"
             "• Qualquer dúvida sobre nossos óculos!\n\n"
             "Digite *menu* a qualquer momento para voltar.",
         )
@@ -173,9 +177,7 @@ async def handle_menu_option(number: str, option: str, session: dict) -> None:
         resp = faq.get_by_key("atendente") or (
             "👤 *Atendimento Humano*\n\n"
             "Um de nossos atendentes entrará em contato em breve.\n\n"
-            "Enquanto isso:\n"
-            f"🌐 {config.SITE_URL}\n"
-            f"🛒 {config.ML_URL}"
+            f"Enquanto isso, explore nosso catálogo em:\n🌐 {config.SITE_URL}"
         )
         await send_message(number, resp)
 
