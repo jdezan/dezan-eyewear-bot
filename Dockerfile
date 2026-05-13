@@ -11,15 +11,9 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Pré-baixa o modelo de embeddings HuggingFace durante o build
-# (evita delay de cold start no primeiro uso)
-RUN python -c "\
-from sentence_transformers import SentenceTransformer; \
-SentenceTransformer('sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2'); \
-print('Modelo de embeddings pré-carregado com sucesso.')"
-
-# Copia o código — atualizado em 2026-05-13
-ARG CACHEBUST=2026-05-13
+# Copia o código
+# O modelo HuggingFace será baixado automaticamente no primeiro startup
+ARG CACHEBUST=2026-05-13b
 COPY . .
 
 EXPOSE 8000
